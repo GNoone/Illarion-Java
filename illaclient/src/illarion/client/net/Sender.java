@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -230,14 +232,17 @@ final class Sender extends Thread implements NetCommWriter {
     @Override
     public void writeString(final String value) {
         final int startIndex = buffer.position();
-        buffer.put((byte) 0);
+        buffer.putShort((short) 0);
 
         encodingBuffer.clear();
-        encodingBuffer.put(value, 0, Math.min(1 << Byte.SIZE, value.length()));
+        encodingBuffer.put(value, 0, Math.min(1 << Short.SIZE, value.length()));
         encodingBuffer.flip();
 
         encoder.encode(encodingBuffer, buffer, true);
-        buffer.put(startIndex, (byte) (buffer.position() - startIndex - 1));
+        final int lastIndex = buffer.position();
+        buffer.position(startIndex);
+        writeUShort(lastIndex - startIndex - 2);
+        buffer.position(lastIndex);
     }
 
     /**

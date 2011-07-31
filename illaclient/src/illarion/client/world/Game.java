@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -27,6 +29,7 @@ import illarion.client.graphics.EffectFactory;
 import illarion.client.graphics.ItemFactory;
 import illarion.client.graphics.LoadingScreen;
 import illarion.client.graphics.MapDisplayManager;
+import illarion.client.graphics.MarkerFactory;
 import illarion.client.graphics.OverlayFactory;
 import illarion.client.graphics.RuneFactory;
 import illarion.client.graphics.TileFactory;
@@ -42,7 +45,10 @@ import illarion.client.util.ChatHandler;
 import illarion.client.util.SessionManager;
 import illarion.client.util.SessionMember;
 
+import illarion.common.bug.CrashData;
+import illarion.common.bug.CrashReporter;
 import illarion.common.util.DebugTimer;
+import illarion.common.util.NoResourceException;
 import illarion.common.util.StoppableStorage;
 
 import illarion.graphics.Graphics;
@@ -394,7 +400,15 @@ public final class Game implements SessionMember {
         Graphics.getInstance().getRenderManager().addTask(new RenderTask() {
             @Override
             public boolean render(final int delta) {
-                final boolean result = loadData();
+                boolean result = false;
+                try {
+                    result = loadData();
+                } catch (final NoResourceException e) {
+                    CrashReporter.getInstance().reportCrash(
+                        new CrashData(IllaClient.APPLICATION, IllaClient.VERSION,
+                            "crash.loadres", Thread.currentThread(), e)); //$NON-NLS-1$
+                    IllaClient.errorExit("crash.loadres"); //$NON-NLS-1$
+                }
 
                 ClientWindow.getInstance().getRenderDisplay().getRenderArea()
                     .repaint();
@@ -512,7 +526,7 @@ public final class Game implements SessionMember {
 
         LoadingScreen.getInstance().setCurrentlyLoading(
             LoadingScreen.LOADING_MENUS);
-        // MenuFactory.getInstance().init();
+        MarkerFactory.getInstance();
         LoadingScreen.getInstance()
             .setLoadingDone(LoadingScreen.LOADING_MENUS);
         if (!loadData) {
@@ -658,6 +672,7 @@ public final class Game implements SessionMember {
         musicBox = new MusicBox();
 
         net = new NetComm();
+        player = new Player(login);
         connect();
 
         if (!running) {
@@ -665,7 +680,6 @@ public final class Game implements SessionMember {
             return;
         }
 
-        player = new Player(login);
     }
 
     protected ParticleSystem getParticle() {

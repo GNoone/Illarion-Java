@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -284,12 +286,16 @@ public final class AppearanceMsg extends AbstractReply {
         ch.setWearingItem(AvatarClothManager.GROUP_TROUSERS, legsItemID);
         ch.setWearingItem(AvatarClothManager.GROUP_SHOES, feetItemID);
 
-        ch.setWearingItem(AvatarClothManager.GROUP_FIRST_HAND, leftItemId);
-        ch.setWearingItem(AvatarClothManager.GROUP_SECOND_HAND, rightItemId);
+        ch.setWearingItem(AvatarClothManager.GROUP_FIRST_HAND, rightItemId);
+        ch.setWearingItem(AvatarClothManager.GROUP_SECOND_HAND, leftItemId);
 
         TEMP_COLOR.set(skinColorRed, skinColorGreen, skinColorBlue);
         TEMP_COLOR.setAlpha(SpriteColor.COLOR_MAX);
-        ch.setSkinColor(TEMP_COLOR);
+        if (skinColorRed != 255 || skinColorGreen != 255 || skinColorBlue != 255) {
+        	ch.setSkinColor(TEMP_COLOR);
+        } else {
+            ch.setSkinColor(null);
+        }
 
         TEMP_COLOR.set(hairColorRed, hairColorGreen, hairColorBlue);
         ch.setClothColor(AvatarClothManager.GROUP_HAIR, TEMP_COLOR);

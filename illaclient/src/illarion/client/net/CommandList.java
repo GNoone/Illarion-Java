@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -273,6 +275,11 @@ public final class CommandList {
      * Client command to turn the player character west.
      */
     public static final int CMD_TURN_W = 0x46; // NO_UCD
+    
+    /**
+     * Client command that is used to anser a text request.
+     */
+    public static final int CMD_TEXT_RESPONSE = 0x50;
 
     /**
      * Client command to perform a use action of one or two items on different
@@ -466,6 +473,11 @@ public final class CommandList {
      * Server message to turn the character into a specified direction.
      */
     public static final int MSG_TURN_CHAR = 0xE0;
+    
+    /**
+     * Server message to request a text from the player.
+     */
+    public static final int MSG_TEXT_REQUEST = 0x50;
 
     /**
      * Server message that contains a full updated list of all items on a tile.

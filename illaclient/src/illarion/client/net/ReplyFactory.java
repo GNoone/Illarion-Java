@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -49,6 +51,7 @@ import illarion.client.net.server.SayMsg;
 import illarion.client.net.server.ShowcaseMsg;
 import illarion.client.net.server.SimpleMsg;
 import illarion.client.net.server.SkillMsg;
+import illarion.client.net.server.TextRequestMsg;
 import illarion.client.net.server.TurnCharMsg;
 import illarion.client.net.server.WeatherMsg;
 
@@ -123,6 +126,8 @@ public final class ReplyFactory extends RecycleFactory<AbstractReply> {
 
         register(new CharacterAnimationMsg());
         register(new BookMsg());
+        
+        register(new TextRequestMsg());
 
         finish();
     }

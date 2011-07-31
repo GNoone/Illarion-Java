@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Graphics Engine.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Graphics Engine is free software: you can redistribute i and/or
  * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your
@@ -378,43 +380,42 @@ public final class LightTracer extends Thread implements Stoppable {
                 dirty = true;
                 doRestart = false;
             }
+            LightSource light = null;
+            boolean tidyLight = false;
             synchronized (lightsListsLock) {
                 if (dirty && !pause) {
-                    LightSource light = null;
-
                     if (!tinyLights.isEmpty()
                         && ((tinyLights.size() - 1) > lastTinyIndex)) {
                         lastTinyIndex++;
                         light = tinyLights.get(lastTinyIndex);
-
-                        if (light != null) {
-                            light.apply();
-                            continue;
-                        }
-                    }
-
-                    if (!dirtyLights.isEmpty()) {
+                    } else if (!dirtyLights.isEmpty()) {
                         light = dirtyLights.removeLast();
 
                         if (light != null) {
-                            light.calculateShadows();
-                            light.apply();
                             tinyLights.add(light);
                             lastTinyIndex++;
-                            continue;
                         }
+                    } else {
+                        lastTinyIndex = -1;
                     }
-
-                    setDirty(false);
-                    lastTinyIndex = -1;
+                } else {
+                    try {
+                        lightsListsLock.wait();
+                    } catch (final InterruptedException e) {
+                        LOGGER.debug("Light tracer woken up for unknown reasons",
+                            e);
+                    }
+                    
                 }
-
-                try {
-                    lightsListsLock.wait();
-                } catch (final InterruptedException e) {
-                    LOGGER.debug("Light tracer woken up for unknown reasons",
-                        e);
+            }
+            
+            if (light != null) {
+                if (!tidyLight) {
+                    light.calculateShadows();
                 }
+                light.apply();
+            } else {
+                setDirty(false);
             }
         }
     }

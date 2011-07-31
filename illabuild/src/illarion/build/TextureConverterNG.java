@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Build Utility.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Build Utility is free software: you can redistribute i and/or
  * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your
@@ -521,7 +523,7 @@ public final class TextureConverterNG extends Task {
 
             // write the table files
             writeTableFiles(outJar);
-            System.out.println("tablefiles done");
+            System.out.println("tablefiles done!!!");
 
             // write the texture files
             writeTextureFiles(outJar);

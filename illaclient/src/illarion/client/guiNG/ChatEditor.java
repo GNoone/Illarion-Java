@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -476,8 +478,7 @@ public final class ChatEditor extends Widget implements TextCursorTarget {
     @Override
     public void remove() {
         if (getCursorPosition() > 0) {
-            writtenText.deleteCharAt(getCursorPosition() - 1);
-            dirtyText = true;
+            removeAt(getCursorPosition() - 1);
         }
     }
 
@@ -488,7 +489,8 @@ public final class ChatEditor extends Widget implements TextCursorTarget {
      */
     @Override
     public void removeAt(final int idx) {
-        writtenText.deleteCharAt(idx);
+        final int removeCount = Character.charCount(writtenText.codePointAt(idx));
+        writtenText.delete(idx - removeCount + 1, idx + 1);
         dirtyText = true;
     }
 
