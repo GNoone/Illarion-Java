@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Common Library.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Common Library is free software: you can redistribute i and/or
  * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your
@@ -56,14 +58,14 @@ public final class IllarionLookAndFeel {
             UIManager.put("info", yellow.darker());
             UIManager.put("nimbusBase", background);
             UIManager.put("nimbusDisabledText", background.darker());
-            UIManager.put("nimbusFocus", background.brighter());
+            UIManager.put("nimbusFocus", background.brighter().brighter());
             UIManager.put("nimbusGreen", green.brighter());
             UIManager.put("nimbusInfoBlue", background.darker());
             UIManager.put("nimbusLightBackground", background.brighter());
             UIManager.put("nimbusOrange", green);
             UIManager.put("nimbusRed", red);
             UIManager.put("nimbusSelectedText", Color.white);
-            UIManager.put("nimbusSelectionBackground", background.darker());
+            UIManager.put("nimbusSelectionBackground", background.darker().darker());
             UIManager.put("text", Color.black);
 
             UIManager.put("activeCaption", background.brighter());
@@ -82,9 +84,9 @@ public final class IllarionLookAndFeel {
             UIManager.put("nimbusBorder", background.darker());
             UIManager.put("nimbusSelection", background.darker());
             UIManager.put("scrollbar", background.brighter().brighter());
-            UIManager.put("textBackground", background.brighter());
+            UIManager.put("textBackground", background.darker());
             UIManager.put("textForeground", Color.black);
-            UIManager.put("textHighlight", background.brighter());
+            UIManager.put("textHighlight", background.brighter().brighter());
             UIManager.put("textHighlightText", background.brighter());
             UIManager.put("textInactiveText", background.darker());
             for (final LookAndFeelInfo info : UIManager

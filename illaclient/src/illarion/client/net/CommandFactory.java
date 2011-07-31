@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -44,6 +46,7 @@ import illarion.client.net.client.OpenShowcaseCmd;
 import illarion.client.net.client.RequestAppearanceCmd;
 import illarion.client.net.client.SayCmd;
 import illarion.client.net.client.SimpleCmd;
+import illarion.client.net.client.TextResponseCmd;
 import illarion.client.net.client.UseCmd;
 
 import illarion.common.util.RecycleFactory;
@@ -143,6 +146,8 @@ public final class CommandFactory extends RecycleFactory<AbstractCommand> {
         map(CommandList.CMD_DRAG_MAP_MAP_W, CommandList.CMD_DRAG_MAP_MAP_N);
         map(CommandList.CMD_DRAG_MAP_MAP_NW, CommandList.CMD_DRAG_MAP_MAP_N);
         map(CommandList.CMD_DRAG_MAP_MAP_ZERO, CommandList.CMD_DRAG_MAP_MAP_N);
+        
+        register(new TextResponseCmd());
 
         finish();
     }

@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Graphics Engine.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Graphics Engine is free software: you can redistribute i and/or
  * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your
@@ -26,6 +28,8 @@ import javolution.util.FastComparator;
 import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
+
+import illarion.common.util.NoResourceException;
 
 import illarion.graphics.Graphics;
 import illarion.graphics.RenderableFont;
@@ -157,7 +161,12 @@ public final class FontLoader {
             return null;
         }
 
-        font.prepareTextures(FONT_ROOT);
+        try {
+            font.prepareTextures(FONT_ROOT);
+        } catch (final Exception e) {
+            // Problem while preparing the textures.
+            throw new NoResourceException("Error while loading font", e);
+        }
 
         final RenderableFont loadedText = Graphics.getInstance().getFont(font);
         return loadedText;

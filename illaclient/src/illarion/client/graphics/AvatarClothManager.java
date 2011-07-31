@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Client.
- * 
+ *
+ * Copyright © 2011 - Illarion e.V.
+ *
  * The Illarion Client is free software: you can redistribute i and/or modify it
  * under the terms of the GNU General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
@@ -48,7 +50,7 @@ public final class AvatarClothManager {
     public static final int GROUP_COUNT; // NO_UCD
 
     /**
-     * The index of the group of items the avatar can wear in the left hand.
+     * The index of the group of items the avatar can wear in the right hand.
      * Tools weapons and similar things could be listed there.
      */
     public static final int GROUP_FIRST_HAND; // NO_UCD
@@ -65,7 +67,7 @@ public final class AvatarClothManager {
     public static final int GROUP_HAT; // NO_UCD
 
     /**
-     * The index of the group of items the avatar can wear in the right hand.
+     * The index of the group of items the avatar can wear in the left hand.
      * Tools weapons and similar things could be listed there.
      */
     public static final int GROUP_SECOND_HAND; // NO_UCD

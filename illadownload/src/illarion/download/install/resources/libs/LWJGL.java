@@ -1,6 +1,8 @@
 /*
  * This file is part of the Illarion Download Manager.
  * 
+ * Copyright © 2011 - Illarion e.V.
+ * 
  * The Illarion Download Manager is free software: you can redistribute i and/or
  * modify it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or (at your
@@ -24,7 +26,6 @@ import java.util.Collection;
 import illarion.common.util.DirectoryManager;
 
 import illarion.download.install.resources.Resource;
-import illarion.download.install.resources.dev.DevelopmentDirectory;
 import illarion.download.util.Lang;
 import illarion.download.util.OSDetection;
 
@@ -82,7 +83,7 @@ public final class LWJGL implements LibraryResource {
     public Collection<File> getClassPath() {
         if (classpath == null) {
             final Collection<File> cp = new ArrayList<File>();
-            cp.add(new File(DevelopmentDirectory.getInstance().getDirectory(),
+            cp.add(new File(LibraryDirectory.getInstance().getDirectory(),
                 "lwjgl.jar")); //$NON-NLS-1$
             cp.add(new File(LibraryDirectory.getInstance().getDirectory(),
                 "lwjgl_util.jar")); //$NON-NLS-1$
